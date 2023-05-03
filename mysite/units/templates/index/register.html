@@ -1,0 +1,20 @@
+{% extends 'index/index.html' %}
+{% load static %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+{% block style%}
+<link rel="stylesheet" href="{% static 'dist/scss/create.css'%}">
+{% endblock%}
+
+{% block content %}
+<div class="blank-input register">
+<h1>Registration</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="form-btn">Submit</button>
+    </form>
+</div>
+{% endblock %}

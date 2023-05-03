@@ -1,0 +1,18 @@
+
+
+    <header class="header" id="header">
+    <span id="HookWood" data-action="home" ><span><b style="color: #44dbcc">  SC2</b> units  </span></span>
+        <ul id="headerUl">
+            <li id="UNITS" data-action="units" onclick="location.href='{% url 'index'%}';">UNITS</li>
+        <li id="BUILDINGS" data-action="buildings">BUILDINGS</li>
+        <li id="FRACTIONS" data-action="fractions">FRACTIONS</li>
+
+                {% if user.is_authenticated %}
+            <li id="id-REG" data-action="profile">{{ user.username }}</li>
+            <li id="CREATE" data-action="create" onclick="location.href='{% url 'create'%}';">CREATE</li>
+            <li id="LOGOUT" data-action="logout" onclick="location.href='{% url 'logout'%}';">LOGOUT</li>
+                {% else %}
+            <li id="LOGIN" data-action="login">LOGIN</li>
+                {% endif %}
+</ul>
+</header>

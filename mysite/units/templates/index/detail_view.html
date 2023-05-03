@@ -1,0 +1,27 @@
+{% extends 'index/index.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block header %}
+{% include "index/header.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="Units-outter" >
+     <div class="Units-background-image" style="background-image: url({{ x.imgBck }});"></div>
+     <div class="Units-inner">
+     <ul>
+          <li ><div style="background-image: url({{ x.imgIndex }})" class="Units-img"style="cursor: pointer;"></div></li>
+          <li>{{ x.name }}</li>
+          <li><i>{{ x.type }}</i></li>
+          <li>{{ x.short_des }}</li>
+     </ul>
+     </div>
+     </div>
+
+{% endblock %}
+{% block script %}
+{% endblock %}
+

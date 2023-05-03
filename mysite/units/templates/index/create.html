@@ -1,0 +1,80 @@
+{% extends 'index/index.html' %}
+{% load static %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+{% block style%}
+<link rel="stylesheet" href="{% static 'dist/scss/create.css'%}">
+{% endblock%}
+{% block header %}
+{% include "index/header.html" %}
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div  class="form">
+
+    <div class="form-preview">
+        <span>{{ error }}</span>
+        <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="Units-outter" id="" style="margin: 20px 0px 0px auto;">
+     <div class="Units-background-image" id="Units-background-image"></div>
+     <div class="Units-inner">
+     <ul>
+          <li ><div class="Units-img" id="Units-icon"></div></li>
+          <li><div class="form__group">
+            {{ form.name }}
+            <label for="name" class="form__label">Unit name</label>
+        </div></li>
+          <li><div class="form__group">
+            {{ form.fr }}
+
+              <select id="fractions" class="form__input" onchange="frChange()">
+   <option value="P">Protoss</option>
+   <option value="T">Terran</option>
+   <option value="Z">Zerg</option>
+              </select>
+              <label for="name" class="form__label">Unit fraction</label>
+        </div></li>
+          <li><div class="form__group">
+            {{ form.type }}
+            <label for="name" class="form__label" style="text-align: center;">Unit type</label>
+        </div></li>
+          <li><div class="form__group">
+            {{ form.short_des }}
+            <label for="name" class="form__label"  style="transform: translateY(-15.5rem);">Unit description</label>
+        </div></li>
+     </ul>
+     </div>
+
+     </div>
+        <div class="file-drop-area" id="img_area">
+            <span class="fake-btn" ><b> Choose image </b></span>
+            <span class="file-msg" id="file-msg-icon"><p>or drag and drop unit icon</p></span>
+            {{ form.img }}
+        </div>
+        <div class="file-drop-area" id="img_bck_area">
+            <span class="fake-btn"><b> Choose image </b></span>
+            <span class="file-msg" id="file-msg-bck"><p>or drag and drop unit card image</p></span>
+            {{ form.img_bck }}
+    </div>
+            <div class="unit-info" id="unit-content">
+            {{ form.des }}
+            </div>
+             <button class="form-btn" type="submit">Submit unit</button><br>
+
+    </form>
+
+
+            </div>
+
+    <!--div class="form-create"><h1>Unit creation  form:</h1>
+
+</div>-->
+{% else %}
+{% endif %}
+{% endblock %}
+{% block script %}
+{% endblock %}

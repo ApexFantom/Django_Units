@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Phone Numbers</title>
+</head>
+<body>
+<ul style="display: block;">
+{% for x in pns %}
+     <li class="PN-outter" style="display: inline-block; white-space: nowrap;">
+        <p>{{ x.name }}</p>
+         <p>{{ x.pn }}</p>
+     </li>
+    <br>
+     {% endfor %}
+    </ul>
+</body>
+</html>

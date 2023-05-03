@@ -1,0 +1,17 @@
+<div class="Units-align">
+<div class="Units-base">
+<ul>
+     {% for x in unitslist %}
+     <li class="Units-outter" >
+     <div class="Units-background-image" style="background-image: url({{ x.imgBck }});"></div>
+     <div class="Units-inner">
+     <ul>
+          <li ><div style="background-image: url({{ x.imgIndex }})" class="Units-img"style="cursor: pointer;" onclick="window.location='{% url 'detail_view' x.id %}';" ></div></li>
+          <li>{{ x.name }}</li>
+          <li><i>{{ x.type }}</i></li>
+          <li>{{ x.short_des }}</li>
+     </ul>
+     </div>
+     </li>
+     {% endfor %}
+</ul></div></div>

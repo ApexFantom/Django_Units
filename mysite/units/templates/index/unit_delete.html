@@ -1,0 +1,36 @@
+{% extends 'index/index.html' %}
+{% load static %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+{% block style%}
+<link rel="stylesheet" href="{% static 'dist/scss/create.css'%}">
+{% endblock%}
+{% block header %}
+{% include "index/header.html" %}
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div  class="form">
+
+    <div>
+        <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+             <button class="form-btn" type="submit">Delete Unit</button><br>
+
+        </form>
+
+
+    </div>
+
+    <!--div class="form-create"><h1>Unit creation  form:</h1>
+
+</div>-->
+{% else %}
+{% endif %}
+{% endblock %}
+{% block script %}
+{% endblock %}
