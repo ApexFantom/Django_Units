@@ -27,7 +27,7 @@ from .yasg import urlpatterns as doc_urls
 
 router = routers.DefaultRouter()
 router.register(r'units', UnitsAPIViewSet, basename='units')
-print(router.urls)
+# print(router.urls)
 
 urlpatterns = [
     path('polls/', include('polls.urls')),
