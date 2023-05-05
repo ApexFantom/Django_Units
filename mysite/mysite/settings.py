@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
+    'drf_yasg',
     'rest_framework_simplejwt',
     'import_export',
 

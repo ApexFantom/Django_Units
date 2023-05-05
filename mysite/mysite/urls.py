@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 from units.views import *
 from rest_framework import routers
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
+from .yasg import urlpatterns as doc_urls
 
 
 
@@ -49,7 +50,7 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('token/revoke/', TokenRevokeView.as_view(), name='token_revoke'),
 
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + doc_urls
 
 if settings.DEBUG:
     import debug_toolbar

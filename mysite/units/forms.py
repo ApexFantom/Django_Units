@@ -1,12 +1,14 @@
 from django.contrib.auth import password_validation
 from django.contrib.auth.models import User
 
-from .models import Unitsdb
+from .models import Unitsdb, CustomUser
 from django.forms import ModelForm, TextInput, Textarea,  ClearableFileInput
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 import django.contrib.auth.password_validation
 from django import forms
 from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
+
+
 
 # Apply summernote to specific fields.
 class SomeForm(forms.Form):
@@ -62,15 +64,22 @@ class UnitsForm(ModelForm):
             }),
         }
 
-class RegisterUserForm(UserCreationForm):
+class LoginUserForm(AuthenticationForm):
     username = forms.CharField(label='Login:', widget=forms.TextInput(attrs={'class': 'blank-input'}))
     email = forms.EmailField(label='Email:')
+    password = forms.CharField(label='Password:', widget=forms.PasswordInput(attrs={'class': 'blank-input'}))
+    class Meta:
+        model = CustomUser
+        fields = ('username', 'email', 'password1')
+class RegisterUserForm(UserCreationForm):
+    username = forms.CharField(label='Nickname:', widget=forms.TextInput(attrs={'class': 'blank-input'}))
+    email = forms.EmailField(label='Email:', widget=forms.TextInput(attrs={'class': 'blank-input'}))
     password1 = forms.CharField(label='Password:', widget=forms.PasswordInput(attrs={'class': 'blank-input'}))
     password2 = forms.CharField(label='Password confirmation:', widget=forms.PasswordInput(attrs={'class': 'blank-input'}))
 
-    # class Meta:
-    #     model = User
-    #     fields = ('username', 'email', 'password1', 'password2')
+    class Meta:
+        model = CustomUser
+        fields = ('username', 'email', 'password1', 'password2')
     # widgets = {
     #         'username': forms.TextInput(attrs={'class': 'blank-input'}),
     #         'password1': forms.PasswordInput(attrs={'class': 'blank-input'}, ),

@@ -10,7 +10,7 @@
                 {% if user.is_authenticated %}
             <li id="id-REG" data-action="profile">{{ user.username }}</li>
             <li id="CREATE" data-action="create" onclick="location.href='{% url 'create'%}';">CREATE</li>
-            <li id="LOGOUT" data-action="logout" onclick="location.href='{% url 'logout'%}';">LOGOUT</li>
+            <li id="LOGOUT" data-action="logout" onclick="location.href='{% url 'logout_view'%}';">LOGOUT</li>
                 {% else %}
             <li id="LOGIN" data-action="login">LOGIN</li>
                 {% endif %}

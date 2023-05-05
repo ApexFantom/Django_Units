@@ -1,12 +1,11 @@
-
-<div class="blank-global-container" id="reg-blank-login" data-action="login" style="display: none;">
+<div class="blank-global-container" id="reg-blank-login" data-action="login" style="display: none; backdrop-filter: url(filters.svg#filter) blur(4px) saturate(150%) brightness(60%);">
 <div class="blank-input login">
 <h1>Login</h1>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <p>Are you a new member? Join us now</p><p style="form-btn"><a href="{% url 'register' %}"><b>Sing up</b></a></p>
-    <button type="submit">Login in</button>
+    <p>Are you a new member? Join us now</p><p style="form-btn"><a href="{% url 'register_view' %}"><b>Sing up</b></a></p>
+    <button type="submit" class="form-btn">Login in</button>
 </form>
 </div>
 </div>

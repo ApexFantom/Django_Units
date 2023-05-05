@@ -10,8 +10,8 @@ urlpatterns = [
     path('<int:pk>', views.UnitDetailView.as_view(), name='detail_view'),
     path('<int:pk>/update', views.UnitUpdateView.as_view(), name='update_view'),
     path('<int:pk>/delete', views.UnitDelete.as_view(), name='delete_view'),
-    path('register', views.register_view, name='register'),
-    path('logout/', views.logout_view, name='logout'),
+    path('register_view', views.register_view, name='register_view'),
+    path('logout_view/', views.logout_view, name='logout_view'),
     #path('admin/', views.dom, name='home'),
 ]
 

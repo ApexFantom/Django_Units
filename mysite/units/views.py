@@ -1,10 +1,10 @@
 import pandas
 from django.forms import model_to_dict
 from django.shortcuts import render, redirect
-
+from rest_framework.authtoken.models import Token
 
 from .models import Unitsdb
-from .forms import UnitsForm
+from .forms import UnitsForm, RegisterUserForm, LoginUserForm
 import os
 import environ
 from django.views.generic import DetailView, UpdateView, DeleteView
@@ -14,8 +14,7 @@ from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
-from .forms import RegisterUserForm
-from rest_framework import generics, viewsets, mixins
+from rest_framework import generics, viewsets, mixins, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
@@ -32,8 +31,9 @@ from rest_framework import views
 from rest_framework.permissions import AllowAny
 from django.views.decorators.cache import cache_page
 # Create your views here.
-
-
+from django.views.decorators.csrf import csrf_protect
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 
 # env = environ.Env(
@@ -51,8 +51,7 @@ from django.views.decorators.cache import cache_page
 #         'environ.html',
 #         context={'variable': variable_env}
 #     )
-
-@cache_page(60*15)
+@csrf_protect
 def index(request):
     unitDBiter = Unitsdb.objects.all()
     for i in unitDBiter:
@@ -116,31 +115,33 @@ class UnitDelete(DeleteView):
     template_name = 'index/unit_delete.html'
 
 
+@csrf_protect
 def login_view(request):
     if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
+        form = LoginUserForm(data=request.POST)
         if form.is_valid():
-            user = form.get_user()
+            user = form.cleaned_data.get('user')
             login(request, user)
             return redirect('index')
     else:
-        form = AuthenticationForm()
+        form = LoginUserForm()
     return render(request, 'index/login.html', {'form': form})
 
-
+@csrf_protect
 def logout_view(request):
     logout(request)
     return redirect('index')
 
+@csrf_protect
 def register_view(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = RegisterUserForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
             return redirect('index')
     else:
-        form = UserCreationForm()
+        form = RegisterUserForm()
     return render(request, 'index/register.html', {'form': form})
 
 class UnitsAPIPagination(PageNumberPagination):
@@ -210,6 +211,7 @@ class AdminView(views.APIView):
         return Response({'message': 'Hello, admin user!'})
 
 class LogoutView(views.APIView):
+    permission_classes = (IsAuthenticated,)
     def post(self, request, *args, **kwargs):
         logout(request)
         return Response({'message': 'Successfully logged out.'})
